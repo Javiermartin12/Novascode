@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     const projectName = projectLabels[cleanProjectType] ?? "Consulta general";
 
     const { data, error } = await resend.emails.send({
-      from: "Novascode <onboarding@resend.dev>",
+      from: "Novascode <contacto@novascode.es>",
       to: [CONTACT_EMAIL],
       replyTo: cleanEmail,
       subject: `[Novascode] Nueva consulta — ${cleanName}`,
