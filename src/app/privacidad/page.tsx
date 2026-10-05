@@ -52,10 +52,10 @@ export default function PrivacidadPage() {
             <p>
               <strong>Correo electrónico:</strong>{" "}
               <a
-                href="mailto:javiermartinruiz21@gmail.com"
+                href="mailto:contacto@novascode.es"
                 className="text-indigo-600 hover:underline"
               >
-                javiermartinruiz21@gmail.com
+                contacto@novascode.es
               </a>
             </p>
           </PrivacySection>
@@ -132,10 +132,10 @@ export default function PrivacidadPage() {
             <p className="mt-4">
               Para ejercer estos derechos puede enviar una solicitud a{" "}
               <a
-                href="mailto:javiermartinruiz21@gmail.com"
+                href="mailto:contacto@novascode.es"
                 className="text-indigo-600 hover:underline"
               >
-                javiermartinruiz21@gmail.com
+                contacto@novascode.es
               </a>
               .
             </p>

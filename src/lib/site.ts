@@ -8,7 +8,7 @@ export const siteConfig = {
 
   locale: "es_ES",
 
-  email: "javiermartinruiz21@gmail.com",
+  email: "contacto@novascode.es",
 
   phone: "+34633560759",
 

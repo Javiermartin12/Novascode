@@ -77,12 +77,12 @@ export default function Footer() {
 
             <div className="mt-6 space-y-5">
               <a
-                href="mailto:javiermartinruiz21@gmail.com"
+                href="mailto:contacto@novascode.es"
                 className="group flex items-start gap-3 text-sm text-neutral-300 transition hover:text-white"
               >
                 <Mail size={18} className="mt-0.5 shrink-0 text-indigo-400" />
 
-                <span className="break-all">javiermartinruiz21@gmail.com</span>
+                <span className="break-all">contacto@novascode.es</span>
               </a>
 
               <a

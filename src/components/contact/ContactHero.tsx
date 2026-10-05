@@ -67,7 +67,7 @@ export default function ContactHero() {
 
               {/* Email */}
               <a
-                href="mailto:javiermartinruiz21@gmail.com"
+                href="mailto:contacto@novascode.es"
                 className="group flex items-center gap-4 rounded-2xl border border-neutral-200 bg-white p-4 transition hover:border-indigo-200 hover:bg-neutral-50"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white">
@@ -78,7 +78,7 @@ export default function ContactHero() {
                   <p className="text-xs font-medium text-neutral-400">Email</p>
 
                   <p className="mt-0.5 break-all text-sm font-semibold text-neutral-950">
-                    javiermartinruiz21@gmail.com
+                    contacto@novascode.es
                   </p>
                 </div>
               </a>

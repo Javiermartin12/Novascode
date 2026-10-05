@@ -84,10 +84,10 @@ export default function AvisoLegalPage() {
                   Correo electrónico:
                 </strong>{" "}
                 <a
-                  href="mailto:javiermartinruiz21@gmail.com"
+                  href="mailto:contacto@novascode.es"
                   className="text-indigo-600 transition hover:text-indigo-700 hover:underline"
                 >
-                  javiermartinruiz21@gmail.com
+                  contacto@novascode.es
                 </a>
               </p>
 

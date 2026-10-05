@@ -3,7 +3,7 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const CONTACT_EMAIL = "javiermartinruiz21@gmail.com";
+const CONTACT_EMAIL = "contacto@novascode.es";
 
 const projectLabels: Record<string, string> = {
   web: "Web corporativa",
