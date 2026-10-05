@@ -19,18 +19,18 @@ export default function Hero() {
         <div className="min-w-0 max-w-3xl">
           {/* Badge */}
           <div className="mb-5 inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-700 sm:mb-6 sm:px-4 sm:text-xs sm:tracking-[0.22em]">
-            Web Â· Software Â· Apps
+            Web · Software · Apps
           </div>
 
-          {/* TÃ­tulo */}
+          {/* Título */}
           <h1 className="max-w-4xl break-words text-[42px] font-semibold leading-[0.98] tracking-[-0.045em] text-neutral-950 sm:text-5xl lg:text-6xl xl:text-7xl">
             Creamos soluciones digitales para hacer crecer{" "}
             <span className="text-indigo-600">tu negocio.</span>
           </h1>
 
-          {/* DescripciÃ³n */}
+          {/* Descripción */}
           <p className="mt-6 max-w-2xl text-base leading-7 text-neutral-600 sm:mt-7 sm:text-lg sm:leading-8 lg:text-xl">
-            DiseÃ±amos y desarrollamos pÃ¡ginas web, aplicaciones mÃ³viles y
+            Diseñamos y desarrollamos páginas web, aplicaciones móviles y
             software a medida para empresas y profesionales.
           </p>
 
@@ -40,7 +40,7 @@ export default function Hero() {
               href="/contacto"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-neutral-950 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-600 sm:w-auto"
             >
-              CuÃ©ntame tu proyecto
+              Cuéntame tu proyecto
               <ArrowRight size={17} />
             </Link>
 
@@ -52,14 +52,14 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* SERVICIOS - MÃ“VIL */}
+          {/* SERVICIOS - MÓVIL */}
           <div className="mt-8 grid grid-cols-2 gap-2 sm:hidden">
             {[
               "Webs corporativas",
               "E-commerce",
-              "Software de gestiÃ³n",
-              "Apps mÃ³viles",
-              "AutomatizaciÃ³n",
+              "Software de gestión",
+              "Apps móviles",
+              "Automatización",
             ].map((service) => (
               <span
                 key={service}
@@ -73,19 +73,19 @@ export default function Hero() {
           {/* SERVICIOS - TABLET Y DESKTOP */}
           <div className="mt-10 hidden flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-500 sm:flex">
             <span>Webs corporativas</span>
-            <span>Â·</span>
+            <span>·</span>
             <span>E-commerce</span>
-            <span>Â·</span>
-            <span>Software de gestiÃ³n</span>
-            <span>Â·</span>
-            <span>Apps mÃ³viles</span>
-            <span>Â·</span>
-            <span>AutomatizaciÃ³n</span>
+            <span>·</span>
+            <span>Software de gestión</span>
+            <span>·</span>
+            <span>Apps móviles</span>
+            <span>·</span>
+            <span>Automatización</span>
           </div>
         </div>
 
         {/* =====================================================
-            VISUAL MÃ“VIL
+            VISUAL MÓVIL
         ====================================================== */}
         <div className="relative mx-auto w-full max-w-[380px] sm:hidden">
           <div className="relative h-[390px]">
@@ -159,7 +159,7 @@ export default function Hero() {
               </div>
             </article>
 
-            {/* APP MÃ“VIL */}
+            {/* APP MÓVIL */}
             <article className="absolute right-0 top-0 z-30 w-[42%] rounded-[25px] border border-neutral-200 bg-white p-3 shadow-[0_25px_60px_-30px_rgba(0,0,0,0.3)]">
               <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-neutral-200" />
 
@@ -168,11 +168,11 @@ export default function Hero() {
               </div>
 
               <p className="mt-4 text-[9px] font-semibold uppercase tracking-[0.15em] text-neutral-400">
-                Apps mÃ³viles
+                Apps móviles
               </p>
 
               <p className="mt-2 text-[15px] font-semibold leading-[1.3] text-neutral-950">
-                Tu negocio tambiÃ©n en el bolsillo
+                Tu negocio también en el bolsillo
               </p>
 
               <div className="mt-5 space-y-2">
@@ -268,11 +268,11 @@ export default function Hero() {
               </div>
 
               <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
-                Apps mÃ³viles
+                Apps móviles
               </p>
 
               <p className="mt-2 text-lg font-semibold text-neutral-950">
-                Tu negocio tambiÃ©n en el bolsillo
+                Tu negocio también en el bolsillo
               </p>
 
               <div className="mt-7 space-y-3">
@@ -367,11 +367,11 @@ export default function Hero() {
               </div>
 
               <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-neutral-400">
-                Apps mÃ³viles
+                Apps móviles
               </p>
 
               <p className="mt-2 text-lg font-semibold text-neutral-950">
-                Tu negocio tambiÃ©n en el bolsillo
+                Tu negocio también en el bolsillo
               </p>
 
               <div className="mt-7 space-y-3">
