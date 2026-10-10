@@ -4,12 +4,12 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 import ProjectsHero from "@/components/projects/ProjectsHero";
-import ProjectShowcase from "@/components/projects/ProjectShowcase";
 import Experience from "@/components/projects/Experience";
 import ProjectsCTA from "@/components/projects/ProjectsCTA";
 
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/lib/site";
+import ProjectsGallery from "@/components/projects/ProjectsGallery";
 
 export const metadata: Metadata = {
   title: "Proyectos de desarrollo web, software y apps",
@@ -98,20 +98,13 @@ export default function ProyectosPage() {
 
       <main>
         <ProjectsHero />
-
-        <section className="bg-neutral-50 py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl space-y-8 px-5 sm:px-6 lg:px-8">
-            <ProjectShowcase project={projects[0]} />
-
-            <ProjectShowcase project={projects[1]} reverse />
-
-            <ProjectShowcase project={projects[2]} />
-          </div>
-        </section>
-
         <Experience />
-
         <ProjectsCTA />
+        <section className="bg-neutral-950 py-18 sm:py-20 lg:py-24">
+          <div className="mx-auto w-full max-w-[1340px] px-8 sm:px-6 lg:px-16">
+            <ProjectsGallery />
+          </div>
+        </section>{" "}
       </main>
 
       <Footer />
