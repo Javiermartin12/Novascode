@@ -660,4 +660,414 @@ export const servicePricing: Record<string, ServicePricing> = {
     disclaimer:
       "Tarifas orientativas de lanzamiento, sin IVA. Los precios de implantación corresponden a configuraciones básicas, no a proyectos completos. Las personalizaciones, migraciones e integraciones se presupuestan según el alcance. Hosting, dominios, licencias, suscripciones y servicios externos no incluidos salvo acuerdo expreso.",
   },
+
+  /* =======================================================
+   AUTOMATIZACIÓN, INTEGRACIONES E IA
+======================================================= */
+
+  "automatizacion-ia": {
+    title: "Automatización, integraciones e IA",
+
+    description:
+      "Automatizamos procesos, conectamos herramientas y desarrollamos chatbots y asistentes virtuales. Ofrecemos instalación, mantenimiento y soluciones adaptadas a cada negocio.",
+
+    sections: [
+      /* ---------------------------------------------------
+       DESARROLLO E INSTALACIÓN
+    --------------------------------------------------- */
+
+      {
+        id: "instalacion",
+        label: "Desarrollo e instalación",
+
+        items: [
+          {
+            name: "Automatización sencilla",
+            price: "Desde 45 €",
+            description:
+              "Automatización de una tarea repetitiva mediante herramientas existentes o código. Por ejemplo, procesar un formulario y enviar una notificación automática. Incluye un flujo sencillo previamente definido.",
+          },
+          {
+            name: "Integración sencilla de API",
+            price: "Desde 75 €",
+            description:
+              "Conexión básica entre una aplicación y un servicio externo mediante su API. Incluye una integración delimitada y las pruebas de funcionamiento acordadas.",
+          },
+          {
+            name: "Chatbot web sin IA",
+            price: "Desde 75 €",
+            description:
+              "Chat de respuestas predefinidas para resolver preguntas frecuentes, mostrar información o dirigir al visitante hacia un formulario de contacto.",
+          },
+          {
+            name: "Chatbot web con inteligencia artificial",
+            price: "Desde 150 €",
+            description:
+              "Asistente básico integrado en una página web, conectado a una API de IA y configurado para responder preguntas a partir de instrucciones e información limitada de la empresa. No incluye consultas complejas a bases de datos ni integraciones adicionales.",
+          },
+          {
+            name: "Asistente virtual con documentos",
+            price: "Desde 300 €",
+            description:
+              "Asistente capaz de consultar un conjunto delimitado de documentos o información de la empresa para responder preguntas. Incluye una configuración inicial de recuperación de información y conexión con una API de IA.",
+          },
+          {
+            name: "Chatbot para WhatsApp",
+            price: "A presupuestar",
+            description:
+              "Integración de un asistente con WhatsApp Business Platform mediante las APIs y servicios necesarios. El precio depende del tipo de conversación, las funcionalidades y las integraciones.",
+          },
+          {
+            name: "Automatización empresarial avanzada",
+            price: "A presupuestar",
+            description:
+              "Automatizaciones con varios procesos, aplicaciones, bases de datos, sistemas de gestión o servicios externos.",
+          },
+          {
+            name: "Integración de IA en software existente",
+            price: "A presupuestar",
+            description:
+              "Incorporación de asistentes inteligentes, procesamiento de información o funcionalidades de IA en aplicaciones empresariales existentes.",
+          },
+          {
+            name: "Desarrollo personalizado",
+            price: "15 €/hora",
+            description:
+              "Desarrollo, configuración e integración de funcionalidades específicas, con estimación previa de horas y presupuesto según alcance.",
+          },
+        ],
+
+        note: "Los precios desde corresponden a implementaciones básicas y delimitadas. Cada proyecto se revisa previamente para definir funcionalidades, horas de trabajo y requisitos técnicos. Las integraciones avanzadas pueden contratarse por fases o hitos.",
+      },
+
+      /* ---------------------------------------------------
+       PLANES MENSUALES
+    --------------------------------------------------- */
+
+      {
+        id: "mensualidades",
+        label: "Planes mensuales",
+
+        items: [
+          {
+            name: "Mantenimiento Esencial",
+            price: "25 €/mes",
+            description:
+              "Comprobación periódica del funcionamiento del chatbot o automatización y hasta 30 minutos mensuales de soporte técnico o pequeños ajustes. Orientado a soluciones sencillas.",
+          },
+          {
+            name: "Mantenimiento Profesional",
+            price: "45 €/mes",
+            description:
+              "Comprobaciones periódicas, revisión básica de incidencias y hasta 2 horas mensuales de soporte o ajustes sobre la solución contratada.",
+          },
+          {
+            name: "Mantenimiento Avanzado",
+            price: "A presupuestar",
+            description:
+              "Servicio personalizado para asistentes con varias integraciones, sistemas empresariales, necesidades de supervisión ampliada o actuaciones frecuentes.",
+          },
+          {
+            name: "Bolsa de soporte · 10 horas",
+            price: "150 €",
+            description:
+              "Horas de soporte, mejora y mantenimiento para funcionalidades ya desarrolladas. Las actuaciones se planifican y acuerdan con el cliente.",
+          },
+          {
+            name: "Soporte y modificaciones puntuales",
+            price: "15 €/hora",
+            description:
+              "Corrección de incidencias, ajustes, mejoras e incorporación de nuevas funcionalidades sin contratar un plan mensual.",
+          },
+        ],
+
+        note: "Los planes mensuales son opcionales y no incluyen consumo de IA, servidores ni servicios externos. Las horas incluidas no se acumulan entre meses. El soporte se presta en el horario acordado y no incluye asistencia permanente 24/7 ni desarrollo ilimitado de nuevas funcionalidades.",
+      },
+
+      /* ---------------------------------------------------
+       CONSUMO Y COSTES EXTERNOS
+    --------------------------------------------------- */
+
+      {
+        id: "costes",
+        label: "Consumo y costes",
+
+        items: [
+          {
+            name: "Consumo de inteligencia artificial",
+            price: "Coste variable",
+            description:
+              "Las APIs de IA pueden facturar según los tokens procesados, el modelo utilizado y otras operaciones. El consumo depende de las consultas realizadas y de la configuración del asistente.",
+          },
+          {
+            name: "Hosting y servidores",
+            price: "Coste aparte",
+            description:
+              "Alojamiento del backend, ejecución de automatizaciones y otros recursos de infraestructura, cuando sean necesarios.",
+          },
+          {
+            name: "WhatsApp Business Platform",
+            price: "Coste aparte",
+            description:
+              "Los servicios oficiales de mensajería de WhatsApp pueden generar cargos según las condiciones y tarifas vigentes. Los proveedores intermediarios pueden aplicar costes adicionales.",
+          },
+          {
+            name: "Bases de datos y almacenamiento",
+            price: "Coste aparte",
+            description:
+              "Almacenamiento de documentos, conversaciones y otra información necesaria para el funcionamiento de la solución.",
+          },
+          {
+            name: "Herramientas y licencias externas",
+            price: "Coste aparte",
+            description:
+              "Suscripciones a plataformas de automatización, conectores, servicios SaaS, APIs comerciales o extensiones de pago.",
+          },
+          {
+            name: "Configuración de controles de consumo",
+            price: "A presupuestar",
+            description:
+              "Configuración de alertas, límites de uso, restricciones de acceso y medidas para reducir el riesgo de gastos imprevistos.",
+          },
+          {
+            name: "Gestión de infraestructura externa",
+            price: "A presupuestar",
+            description:
+              "Administración de los servicios utilizados por la solución, según el proveedor, la infraestructura y las necesidades de mantenimiento.",
+          },
+        ],
+
+        note: "Los costes externos son independientes de los honorarios de Novascode. Siempre que sea posible, el cliente será titular de sus cuentas y pagará directamente a los proveedores. Antes de contratar se informará de los servicios necesarios, sus tarifas y las opciones disponibles para controlar el consumo.",
+      },
+    ],
+
+    disclaimer:
+      "Precios orientativos de lanzamiento, sin IVA. La instalación, el mantenimiento mensual y el consumo de servicios externos son conceptos diferentes. Las tarifas desde corresponden a desarrollos sencillos con alcance limitado. Los costes de IA, servidores, WhatsApp, licencias y APIs se presupuestan aparte. No se incluyen consultas ilimitadas ni disponibilidad 24/7.",
+  },
+
+  /* =======================================================
+   MANTENIMIENTO Y SOPORTE TÉCNICO
+======================================================= */
+
+  "mantenimiento-soporte": {
+    title: "Mantenimiento y soporte técnico",
+
+    description:
+      "Ofrecemos mantenimiento, asistencia y evolución técnica para páginas web, software, aplicaciones móviles, plataformas digitales, automatizaciones, soluciones con IA e infraestructuras.",
+
+    sections: [
+      /* ---------------------------------------------------
+       PLANES DE MANTENIMIENTO
+    --------------------------------------------------- */
+
+      {
+        id: "planes",
+        label: "Planes de mantenimiento",
+
+        items: [
+          {
+            name: "Gestión anual de dominio",
+            price: "20 €/año",
+            description:
+              "Gestión administrativa de renovación del dominio y ajustes DNS básicos. El coste de registro o renovación del dominio se factura aparte.",
+          },
+          {
+            name: "Mantenimiento Web Esencial",
+            price: "60 €/año",
+            description:
+              "Para páginas corporativas sencillas. Incluye una revisión técnica anual del funcionamiento general y comprobaciones básicas previamente acordadas.",
+          },
+          {
+            name: "Mantenimiento Web Profesional",
+            price: "100 €/año",
+            description:
+              "Incluye el mantenimiento Web Esencial y hasta una hora anual adicional de pequeñas modificaciones o ajustes técnicos acordados.",
+          },
+          {
+            name: "Soporte Mensual Esencial",
+            price: "25 €/mes",
+            description:
+              "Servicio periódico con comprobación básica del funcionamiento y hasta 30 minutos mensuales de soporte o pequeños ajustes. Aplicable a sistemas sencillos tras una revisión inicial.",
+          },
+          {
+            name: "Soporte Mensual Profesional",
+            price: "45 €/mes",
+            description:
+              "Soporte periódico y hasta 2 horas mensuales de asistencia, correcciones o mejoras previamente acordadas. La cobertura depende del sistema contratado.",
+          },
+          {
+            name: "Mantenimiento Avanzado",
+            price: "A presupuestar",
+            description:
+              "Para software empresarial, aplicaciones móviles, plataformas complejas, servidores, tiendas online e integraciones que requieren actuaciones o supervisión especializadas.",
+          },
+          {
+            name: "Bolsa de soporte · 10 horas",
+            price: "150 €",
+            description:
+              "Horas destinadas a correcciones, asistencia, actualizaciones y mejoras técnicas en proyectos existentes.",
+          },
+          {
+            name: "Bolsa de soporte · 30 horas",
+            price: "450 €",
+            description:
+              "Bolsa ampliada para empresas que necesitan soporte o evolución técnica de forma continuada.",
+          },
+        ],
+
+        note: "Los planes anuales de 60 € y 100 € están destinados exclusivamente a webs sencillas. Los planes mensuales pueden aplicarse a distintas tecnologías, previa valoración. Las horas mensuales no se acumulan salvo acuerdo expreso. No se incluyen cambios ilimitados, atención 24/7 ni costes de terceros. Cada contrato define sus actuaciones y tiempos de respuesta.",
+      },
+
+      /* ---------------------------------------------------
+       SOPORTE POR TECNOLOGÍA
+    --------------------------------------------------- */
+
+      {
+        id: "tecnologias",
+        label: "Soporte por tecnología",
+
+        items: [
+          {
+            name: "Páginas web y tiendas online",
+            price: "Desde 15 €/hora",
+            description:
+              "Corrección de errores, modificaciones, actualizaciones, optimización, configuración de formularios y mejoras en webs corporativas, catálogos y comercios electrónicos.",
+          },
+          {
+            name: "Software web y de escritorio",
+            price: "15 €/hora",
+            description:
+              "Mantenimiento de aplicaciones empresariales, diagnóstico de incidencias, modificaciones de código, bases de datos, autenticación y nuevas funcionalidades.",
+          },
+          {
+            name: "Aplicaciones Android e iOS",
+            price: "15 €/hora",
+            description:
+              "Corrección de errores, actualizaciones de dependencias, mejoras, adaptaciones de compatibilidad y preparación de nuevas versiones.",
+          },
+          {
+            name: "Moodle y campus virtuales",
+            price: "15 €/hora",
+            description:
+              "Administración técnica, cursos, usuarios, roles, permisos, actividades, evaluaciones, calificaciones, incidencias y mantenimiento del entorno.",
+          },
+          {
+            name: "WordPress y WooCommerce",
+            price: "15 €/hora",
+            description:
+              "Actualizaciones, compatibilidad de plugins, configuración, revisión de errores, ajustes visuales, mejoras y mantenimiento de instalaciones existentes.",
+          },
+          {
+            name: "Shopify",
+            price: "15 €/hora",
+            description:
+              "Configuración, ajustes de temas, administración técnica, revisión de aplicaciones instaladas y soporte sobre la tienda.",
+          },
+          {
+            name: "Automatizaciones e integraciones",
+            price: "15 €/hora",
+            description:
+              "Revisión de flujos automáticos, conexiones API, errores de integración, cambios de configuración y evolución de procesos.",
+          },
+          {
+            name: "Chatbots y asistentes con IA",
+            price: "15 €/hora",
+            description:
+              "Revisión del funcionamiento, actualización de instrucciones y fuentes de información, corrección de errores y ajustes de integraciones.",
+          },
+          {
+            name: "Servidores e infraestructura",
+            price: "A presupuestar",
+            description:
+              "Configuración, administración, despliegues, DNS, bases de datos, copias de seguridad, diagnóstico y actuaciones técnicas sobre servidores.",
+          },
+        ],
+
+        note: "Podemos estudiar el mantenimiento de proyectos desarrollados por Novascode o por terceros. Antes de intervenir se revisan las tecnologías, accesos, estado del sistema y alcance. Los proyectos complejos pueden requerir un presupuesto por fases o un contrato específico.",
+      },
+
+      /* ---------------------------------------------------
+       SERVICIOS PUNTUALES
+    --------------------------------------------------- */
+
+      {
+        id: "puntuales",
+        label: "Servicios puntuales",
+
+        items: [
+          {
+            name: "Diagnóstico de incidencia sencilla",
+            price: "Desde 15 €",
+            description:
+              "Revisión inicial de un problema técnico delimitado. La resolución puede requerir un presupuesto adicional.",
+          },
+          {
+            name: "Instalación o configuración de plugin",
+            price: "Desde 15 €",
+            description:
+              "Instalación y configuración sencilla de plugins, extensiones o módulos compatibles. Licencias aparte.",
+          },
+          {
+            name: "Actualización de plugins y extensiones",
+            price: "Desde 15 €",
+            description:
+              "Actualización puntual, previa comprobación de requisitos y compatibilidad. Las reparaciones adicionales se presupuestan aparte.",
+          },
+          {
+            name: "Configuración de dominio y DNS",
+            price: "Desde 17,50 €",
+            description:
+              "Configuración básica de registros DNS, conexión con alojamiento, correo o servicios externos.",
+          },
+          {
+            name: "Despliegue de página web",
+            price: "Desde 30 €",
+            description:
+              "Publicación de una web existente en un entorno de alojamiento compatible, con requisitos previamente definidos.",
+          },
+          {
+            name: "Migración de web o plataforma",
+            price: "A presupuestar",
+            description:
+              "Traslado de archivos, bases de datos, configuraciones y servicios a un nuevo entorno.",
+          },
+          {
+            name: "Configuración de servidor",
+            price: "A presupuestar",
+            description:
+              "Preparación de infraestructura, servicios, permisos, dependencias y configuración técnica necesaria para un proyecto.",
+          },
+          {
+            name: "Copias de seguridad y restauración",
+            price: "A presupuestar",
+            description:
+              "Configuración de copias, recuperación de información o restauración de sistemas según la infraestructura disponible.",
+          },
+          {
+            name: "Actualización de software",
+            price: "15 €/hora",
+            description:
+              "Actualizaciones de dependencias, versiones, configuraciones y componentes técnicos.",
+          },
+          {
+            name: "Administración de bases de datos",
+            price: "15 €/hora",
+            description:
+              "Consultas, ajustes, mantenimiento, corrección de incidencias y tareas técnicas previamente delimitadas.",
+          },
+          {
+            name: "Desarrollo y soporte personalizado",
+            price: "15 €/hora",
+            description:
+              "Trabajos técnicos específicos, modificaciones y nuevas funcionalidades con estimación previa.",
+          },
+        ],
+
+        note: "No es obligatorio contratar un mantenimiento periódico para solicitar una intervención puntual. Los precios desde corresponden a tareas sencillas. Las actuaciones complejas, urgentes o que requieran varias horas se presupuestan individualmente.",
+      },
+    ],
+
+    disclaimer:
+      "Tarifas orientativas de lanzamiento, sin IVA. El mantenimiento se adapta al tipo de sistema y al alcance contratado. Dominios, hosting, servidores, licencias, plugins de pago, consumo de IA y servicios externos se facturan aparte. Las correcciones cubiertas por garantías legales o contractuales aplicables no se facturan como soporte adicional.",
+  },
 };
