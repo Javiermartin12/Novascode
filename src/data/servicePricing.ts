@@ -328,4 +328,336 @@ export const servicePricing: Record<string, ServicePricing> = {
     disclaimer:
       "Tarifas orientativas de lanzamiento, sin IVA. Precio de referencia: 15 €/hora. Las funcionalidades, horas y entregables se definen antes de contratar. Los ejemplos de hitos no son presupuestos cerrados. Alojamiento, servidores, bases de datos, licencias y servicios externos no incluidos salvo indicación expresa.",
   },
+
+  /* =======================================================
+   APLICACIONES MÓVILES
+======================================================= */
+
+  "aplicaciones-moviles": {
+    title: "Aplicaciones móviles",
+
+    description:
+      "Desarrollamos, mejoramos y mantenemos aplicaciones móviles para Android e iOS. Trabajamos por horas o por fases, adaptando el presupuesto a las funcionalidades de cada proyecto.",
+
+    sections: [
+      /* ---------------------------------------------------
+       PAQUETES DE HORAS
+    --------------------------------------------------- */
+
+      {
+        id: "paquetes",
+        label: "Paquetes de horas",
+
+        items: [
+          {
+            name: "Pack Inicio · 10 horas",
+            price: "150 €",
+            description:
+              "Pequeñas mejoras, correcciones de errores, ajustes visuales y tareas concretas sobre aplicaciones existentes.",
+          },
+          {
+            name: "Pack Desarrollo · 30 horas",
+            price: "450 €",
+            description:
+              "Desarrollo de pantallas, nuevas funcionalidades, integraciones sencillas y mejoras previamente definidas.",
+          },
+          {
+            name: "Pack Proyecto · 100 horas",
+            price: "1.500 €",
+            description:
+              "Bolsa de desarrollo para aplicaciones con varias funcionalidades, organizada mediante fases y entregas parciales.",
+          },
+          {
+            name: "Pack Evolución · 300 horas",
+            price: "4.500 €",
+            description:
+              "Proyectos de mayor alcance o evolución continuada de aplicaciones, con planificación, entregables y pagos por hitos.",
+          },
+        ],
+
+        note: "Tarifa de referencia: 15 €/hora. Los paquetes representan horas de trabajo, no una aplicación completa ni funcionalidades garantizadas. Los proyectos de mayor duración podrán dividirse en fases con pagos acordados.",
+      },
+
+      /* ---------------------------------------------------
+       DESARROLLO POR HITOS
+    --------------------------------------------------- */
+
+      {
+        id: "hitos",
+        label: "Desarrollo por hitos",
+
+        items: [
+          {
+            name: "Hito 1 · Estructura y navegación",
+            price: "A presupuestar",
+            description:
+              "Definición de requisitos, estructura de la aplicación, configuración inicial y desarrollo de las primeras pantallas.",
+          },
+          {
+            name: "Hito 2 · Funcionalidades principales",
+            price: "A presupuestar",
+            description:
+              "Implementación de las funciones acordadas, gestión de datos, formularios, navegación y operaciones de usuario.",
+          },
+          {
+            name: "Hito 3 · Backend e integraciones",
+            price: "A presupuestar",
+            description:
+              "Conexión con APIs, bases de datos, autenticación, servicios externos y otras funcionalidades necesarias.",
+          },
+          {
+            name: "Hito 4 · Pruebas y entrega",
+            price: "A presupuestar",
+            description:
+              "Verificación en los dispositivos acordados, corrección de defectos y preparación de la versión de entrega.",
+          },
+        ],
+
+        note: "Cada hito tendrá un presupuesto calculado según las horas estimadas, las funcionalidades y los criterios de aceptación. Las entregas se revisan y validan con el cliente. Los pagos y condiciones se acuerdan antes de comenzar cada fase.",
+      },
+
+      /* ---------------------------------------------------
+       PUBLICACIÓN Y SOPORTE
+    --------------------------------------------------- */
+
+      {
+        id: "soporte",
+        label: "Publicación y soporte",
+
+        items: [
+          {
+            name: "Publicación en Google Play",
+            price: "A presupuestar",
+            description:
+              "Preparación de la aplicación Android y asistencia en el proceso de publicación. La cuenta de desarrollador se contrata aparte.",
+          },
+          {
+            name: "Publicación en App Store",
+            price: "A presupuestar",
+            description:
+              "Preparación de la aplicación iOS y asistencia en el proceso de revisión y publicación de Apple. La cuenta de desarrollador se contrata aparte.",
+          },
+          {
+            name: "Corrección de errores",
+            price: "15 €/hora",
+            description:
+              "Diagnóstico y resolución de incidencias en aplicaciones móviles existentes, fuera de las correcciones cubiertas por la garantía acordada.",
+          },
+          {
+            name: "Nuevas funcionalidades",
+            price: "15 €/hora",
+            description:
+              "Ampliación de pantallas, operaciones, integraciones y funcionalidades de una aplicación.",
+          },
+          {
+            name: "Actualizaciones Android e iOS",
+            price: "15 €/hora",
+            description:
+              "Adaptaciones de compatibilidad, dependencias y ajustes derivados de nuevas versiones del sistema operativo.",
+          },
+          {
+            name: "Bolsa mensual · 10 horas",
+            price: "150 €/mes",
+            description:
+              "Desarrollo, mejoras y soporte periódico según una planificación mensual acordada.",
+          },
+          {
+            name: "Mantenimiento de aplicaciones",
+            price: "A presupuestar",
+            description:
+              "Supervisión, actualizaciones, soporte y evolución técnica según las características de cada aplicación.",
+          },
+          {
+            name: "Backend, servidores y bases de datos",
+            price: "Costes aparte",
+            description:
+              "Alojamiento, almacenamiento, infraestructura y servicios externos según las necesidades del proyecto. La configuración técnica se presupuesta cuando corresponda.",
+          },
+        ],
+
+        note: "Los costes de las cuentas de desarrollador, servidores, bases de datos, licencias y APIs externas no están incluidos. La aceptación de una aplicación en las tiendas está sujeta a las políticas de Google y Apple.",
+      },
+    ],
+
+    disclaimer:
+      "Precios orientativos de lanzamiento, sin IVA. Tarifa de referencia: 15 €/hora. El desarrollo puede realizarse para Android e iOS mediante tecnologías multiplataforma como React Native. Los proyectos que requieran desarrollo nativo específico, funcionalidades complejas o infraestructura adicional se presupuestarán individualmente.",
+  },
+
+  /* =======================================================
+   PLATAFORMAS DIGITALES
+======================================================= */
+
+  "plataformas-digitales": {
+    title: "Plataformas digitales",
+
+    description:
+      "Implantamos, configuramos, personalizamos y mantenemos plataformas digitales como Moodle, WordPress, WooCommerce y Shopify, adaptándolas a las necesidades de cada proyecto.",
+
+    sections: [
+      /* ---------------------------------------------------
+       IMPLANTACIÓN Y CONFIGURACIÓN
+    --------------------------------------------------- */
+
+      {
+        id: "implantacion",
+        label: "Implantación",
+
+        items: [
+          {
+            name: "Instalación básica de WordPress",
+            price: "Desde 60 €",
+            description:
+              "Instalación del CMS, configuración inicial, ajustes generales y preparación del entorno para comenzar a trabajar.",
+          },
+          {
+            name: "Implantación básica de Moodle",
+            price: "Desde 150 €",
+            description:
+              "Instalación, configuración inicial, creación de la estructura básica y puesta en funcionamiento de un campus virtual.",
+          },
+          {
+            name: "Configuración inicial de WooCommerce",
+            price: "Desde 150 €",
+            description:
+              "Instalación y configuración básica de la tienda, ajustes generales y preparación de las funciones esenciales de comercio electrónico.",
+          },
+          {
+            name: "Configuración inicial de Shopify",
+            price: "Desde 150 €",
+            description:
+              "Configuración inicial de la tienda, ajustes generales, estructura básica y preparación del entorno comercial.",
+          },
+          {
+            name: "Implantación avanzada de plataformas",
+            price: "A presupuestar",
+            description:
+              "Configuraciones complejas, múltiples usuarios, personalizaciones, módulos adicionales, integraciones y necesidades específicas.",
+          },
+        ],
+
+        note: "Los precios corresponden a configuraciones iniciales delimitadas. No incluyen el desarrollo completo de una web, la creación de una tienda online terminada, la carga masiva de productos o cursos ni funcionalidades avanzadas. El alcance se define previamente.",
+      },
+
+      /* ---------------------------------------------------
+       PERSONALIZACIÓN Y MEJORAS
+    --------------------------------------------------- */
+
+      {
+        id: "mejoras",
+        label: "Mejoras",
+
+        items: [
+          {
+            name: "Configuración de plugins y extensiones",
+            price: "Desde 15 €/hora",
+            description:
+              "Instalación, configuración y ajustes de plugins, módulos y extensiones compatibles con la plataforma.",
+          },
+          {
+            name: "Personalización de temas y plantillas",
+            price: "Desde 15 €/hora",
+            description:
+              "Modificaciones visuales, adaptación de diseños, ajustes responsive y personalización de elementos existentes.",
+          },
+          {
+            name: "Nuevas funcionalidades",
+            price: "Desde 15 €/hora",
+            description:
+              "Ampliación de funciones, configuración de herramientas y mejoras adaptadas a las necesidades del proyecto.",
+          },
+          {
+            name: "Configuración avanzada de Moodle",
+            price: "Desde 15 €/hora",
+            description:
+              "Gestión de cursos, categorías, usuarios, roles, permisos, actividades, cuestionarios, evaluaciones y seguimiento.",
+          },
+          {
+            name: "Integraciones con servicios externos",
+            price: "A presupuestar",
+            description:
+              "Conexión con APIs, sistemas de gestión, pasarelas de pago, plataformas externas y otras herramientas.",
+          },
+          {
+            name: "Migración de plataformas",
+            price: "A presupuestar",
+            description:
+              "Traslado de instalaciones, contenidos y bases de datos entre servidores o entornos, previa revisión de compatibilidad.",
+          },
+          {
+            name: "Restauración y resolución de incidencias",
+            price: "Desde 15 €/hora",
+            description:
+              "Diagnóstico de errores, recuperación de instalaciones, corrección de configuraciones y resolución de problemas técnicos.",
+          },
+        ],
+
+        note: "Las intervenciones se presupuestan según su dificultad y el tiempo estimado. Las funcionalidades complejas podrán organizarse por fases o hitos, con entregables y pagos acordados.",
+      },
+
+      /* ---------------------------------------------------
+       MANTENIMIENTO Y SOPORTE
+    --------------------------------------------------- */
+
+      {
+        id: "soporte",
+        label: "Soporte",
+
+        items: [
+          {
+            name: "Mantenimiento de WordPress",
+            price: "A presupuestar",
+            description:
+              "Actualizaciones, revisión de plugins, compatibilidad, copias de seguridad y mantenimiento técnico según el alcance contratado.",
+          },
+          {
+            name: "Mantenimiento de Moodle",
+            price: "A presupuestar",
+            description:
+              "Administración técnica, actualizaciones planificadas, revisión de funcionamiento, incidencias y soporte de la plataforma.",
+          },
+          {
+            name: "Mantenimiento de WooCommerce",
+            price: "A presupuestar",
+            description:
+              "Actualizaciones, revisión de extensiones, comprobaciones de funcionamiento y soporte técnico de la tienda.",
+          },
+          {
+            name: "Soporte de Shopify",
+            price: "A presupuestar",
+            description:
+              "Configuración, personalización, mantenimiento de aplicaciones instaladas y mejoras del entorno comercial.",
+          },
+          {
+            name: "Administración de plataformas",
+            price: "15 €/hora",
+            description:
+              "Gestión técnica, ajustes, resolución de incidencias y tareas administrativas acordadas.",
+          },
+          {
+            name: "Bolsa de soporte · 10 horas",
+            price: "150 €",
+            description:
+              "Horas destinadas a mantenimiento, configuraciones, mejoras y resolución de incidencias previamente acordadas.",
+          },
+          {
+            name: "Bolsa de soporte · 30 horas",
+            price: "450 €",
+            description:
+              "Soporte ampliado para plataformas que requieren actuaciones periódicas y evolución técnica.",
+          },
+          {
+            name: "Alojamiento, dominios y licencias",
+            price: "Costes aparte",
+            description:
+              "Hosting, dominios, suscripciones, licencias, plugins de pago y servicios externos, según el proveedor contratado.",
+          },
+        ],
+
+        note: "Los planes de mantenimiento se adaptan al tipo de plataforma y a su complejidad. Las bolsas de horas y los tiempos de respuesta se acuerdan previamente. Los costes de infraestructura y servicios de terceros se presupuestan por separado.",
+      },
+    ],
+
+    disclaimer:
+      "Tarifas orientativas de lanzamiento, sin IVA. Los precios de implantación corresponden a configuraciones básicas, no a proyectos completos. Las personalizaciones, migraciones e integraciones se presupuestan según el alcance. Hosting, dominios, licencias, suscripciones y servicios externos no incluidos salvo acuerdo expreso.",
+  },
 };

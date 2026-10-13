@@ -72,15 +72,15 @@ export const serviceCategories: ServiceCategory[] = [
   {
     id: "plataformas-digitales",
     icon: "platform",
-    eyebrow: "Entornos digitales",
+    eyebrow: "Implantación y gestión de plataformas",
     title: "Plataformas digitales",
     description:
-      "Implantamos y configuramos plataformas que permiten centralizar servicios, contenidos, usuarios y actividades en un mismo entorno.",
+      "Implantamos, configuramos y mantenemos plataformas como Moodle, WordPress, WooCommerce y Shopify. Adaptamos soluciones existentes a las necesidades de cada negocio.",
     features: [
-      "Implantación y configuración de Moodle",
-      "Campus virtuales y entornos de formación",
-      "Intranets y portales privados para empresas",
-      "Gestión de usuarios, permisos y funcionalidades",
+      "Campus virtuales y plataformas Moodle",
+      "WordPress, WooCommerce y Shopify",
+      "Personalización, migraciones e integraciones",
+      "Administración, mantenimiento y soporte",
     ],
   },
 
