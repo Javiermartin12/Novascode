@@ -44,14 +44,16 @@ export default function ServicesHero() {
             </div>
 
             <h1 className="mt-8 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.045em] text-neutral-950 sm:text-5xl lg:text-[64px]">
-              Tecnología para hacer{" "}
-              <span className="text-indigo-600">crecer tu negocio.</span>
+              Desarrollo web y software{" "}
+              <span className="text-indigo-600">a medida para tu negocio.</span>
             </h1>
 
             <p className="mt-7 max-w-xl text-base leading-8 text-neutral-600 sm:text-lg">
-              Diseñamos, desarrollamos y mejoramos soluciones digitales
-              adaptadas a cada proyecto. Desde páginas web y aplicaciones hasta
-              software empresarial, plataformas y automatización de procesos.
+              En Novascode desarrollamos páginas web, software a medida y
+              aplicaciones para empresas y profesionales de Almería y toda
+              España. Creamos plataformas digitales, integramos herramientas y
+              automatizamos procesos para mejorar el funcionamiento de cada
+              negocio.
             </p>
 
             <p className="mt-4 max-w-xl text-base leading-7 text-neutral-500">
