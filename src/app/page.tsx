@@ -6,6 +6,8 @@ import Hero from "@/components/home/Hero";
 import Process from "@/components/home/Process";
 import Services from "@/components/home/Services";
 import Solutions from "@/components/home/Solutions";
+import LaunchOffer from "@/components/home/LaunchOffer";
+
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 
@@ -47,7 +49,7 @@ export default function Home() {
 
       <main className="min-h-screen">
         <Hero />
-
+        <LaunchOffer />
         <Services />
 
         <Solutions />
