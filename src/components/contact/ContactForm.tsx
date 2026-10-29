@@ -1,7 +1,7 @@
 "use client";
 
-import { type ElementType, type FormEvent, useState } from "react";
-
+import { type ElementType, type FormEvent, useRef, useState } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import Link from "next/link";
 
 import {
@@ -19,9 +19,25 @@ type FormStatus = "idle" | "loading" | "success" | "error";
 export default function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!turnstileSiteKey) {
+      setStatus("error");
+      setErrorMessage("La verificación de seguridad no está configurada.");
+      return;
+    }
+
+    if (!turnstileToken) {
+      setStatus("error");
+      setErrorMessage("Completa la verificación de seguridad antes de enviar.");
+      return;
+    }
 
     setStatus("loading");
     setErrorMessage("");
@@ -36,6 +52,7 @@ export default function ContactForm() {
       company: formData.get("company"),
       projectType: formData.get("projectType"),
       message: formData.get("message"),
+      turnstileToken,
 
       // Campo antispam oculto
       website: formData.get("website"),
@@ -60,7 +77,6 @@ export default function ContactForm() {
       form.reset();
     } catch (error) {
       console.error("Error enviando formulario:", error);
-
       setStatus("error");
 
       setErrorMessage(
@@ -68,6 +84,10 @@ export default function ContactForm() {
           ? error.message
           : "No se ha podido enviar el mensaje.",
       );
+    } finally {
+      // El token es de un solo uso.
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     }
   }
 
@@ -210,23 +230,16 @@ export default function ContactForm() {
                   </option>
 
                   <option value="web">Web corporativa</option>
-
                   <option value="ecommerce">Tienda online / e-commerce</option>
-
                   <option value="software">Software a medida</option>
-
                   <option value="app">Aplicación móvil</option>
-
                   <option value="automation">
                     Automatización e integraciones
                   </option>
-
                   <option value="existing">
                     Mejorar un proyecto existente
                   </option>
-
                   <option value="other">Tengo una idea diferente</option>
-
                   <option value="unsure">No sé exactamente qué necesito</option>
                 </select>
               </div>
@@ -272,6 +285,45 @@ export default function ContactForm() {
                   . *
                 </span>
               </label>
+
+              {/* Cloudflare Turnstile */}
+              <div className="space-y-3">
+                <p className="text-sm font-semibold text-neutral-800">
+                  Verificación de seguridad
+                </p>
+
+                {turnstileSiteKey ? (
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={turnstileSiteKey}
+                    options={{
+                      theme: "light",
+                      language: "es",
+                      action: "contact_form",
+                    }}
+                    onSuccess={(token) => {
+                      setTurnstileToken(token);
+
+                      if (status === "error") {
+                        setStatus("idle");
+                        setErrorMessage("");
+                      }
+                    }}
+                    onExpire={() => setTurnstileToken("")}
+                    onError={() => {
+                      setTurnstileToken("");
+                      setStatus("error");
+                      setErrorMessage(
+                        "No se ha podido verificar la seguridad. Vuelve a intentarlo.",
+                      );
+                    }}
+                  />
+                ) : (
+                  <p role="alert" className="text-sm text-red-600">
+                    Verificación de seguridad no configurada.
+                  </p>
+                )}
+              </div>
 
               {/* Botón */}
               <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
@@ -324,9 +376,10 @@ export default function ContactForm() {
               {status === "error" && (
                 <div className="rounded-2xl border border-red-200 bg-red-50 px-5 py-4">
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-600 text-white">
-                      <CircleAlert size={13} />
-                    </div>
+                    <CircleAlert
+                      size={18}
+                      className="mt-0.5 shrink-0 text-red-600"
+                    />
 
                     <div>
                       <p className="text-sm font-semibold text-neutral-950">
@@ -423,7 +476,7 @@ function InfoCard({
 }) {
   return (
     <div className="flex gap-4 rounded-[24px] border border-neutral-200 bg-white p-5">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+      <div className="h-11 w-11 shrink-0 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
         <Icon size={19} strokeWidth={1.8} />
       </div>
 
