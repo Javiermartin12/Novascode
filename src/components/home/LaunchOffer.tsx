@@ -9,7 +9,7 @@ const offers = [
     description:
       "La solución ideal para autónomos y pequeños negocios que quieren tener presencia en internet.",
     features: [
-      "Página web de hasta 3 secciones",
+      "Página web de hasta 6 secciones",
       "Diseño moderno y responsive",
       "Botón de WhatsApp o contacto",
       "Adaptación de textos e imágenes",
@@ -24,7 +24,7 @@ const offers = [
     description:
       "Una web profesional para presentar tu empresa, mostrar tus servicios y recibir consultas.",
     features: [
-      "Hasta 3 páginas independientes",
+      "Hasta 5 páginas independientes",
       "Diseño profesional y responsive",
       "Formulario de contacto",
       "SEO técnico inicial",
