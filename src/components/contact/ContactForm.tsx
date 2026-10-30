@@ -3,6 +3,7 @@
 import { type ElementType, type FormEvent, useRef, useState } from "react";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import Link from "next/link";
+import { sendGAEvent } from "@next/third-parties/google";
 
 import {
   ArrowRight,
@@ -75,6 +76,26 @@ export default function ContactForm() {
 
       setStatus("success");
       form.reset();
+
+      // Registrar conversión solo si el envío ha sido correcto
+      // y el visitante ha aceptado Analytics.
+      try {
+        if (
+          window.localStorage.getItem("novascode-analytics-consent") ===
+          "accepted"
+        ) {
+          sendGAEvent("event", "generate_lead", {
+            form_name: "contacto",
+            project_type: String(data.projectType || "other"),
+          });
+        }
+      } catch (analyticsError) {
+        // Analytics no debe afectar al envío del formulario.
+        console.warn(
+          "No se ha podido registrar el evento de Analytics:",
+          analyticsError,
+        );
+      }
     } catch (error) {
       console.error("Error enviando formulario:", error);
       setStatus("error");
@@ -476,7 +497,7 @@ function InfoCard({
 }) {
   return (
     <div className="flex gap-4 rounded-[24px] border border-neutral-200 bg-white p-5">
-      <div className="h-11 w-11 shrink-0 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+      <div className="h-11 w-11 shrink-0 rounded-2xl border-0 bg-indigo-50 flex items-center justify-center text-indigo-600">
         <Icon size={19} strokeWidth={1.8} />
       </div>
 
