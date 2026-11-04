@@ -156,7 +156,7 @@ export default function LaunchOffer() {
             ¿Necesitas una aplicación, software a medida o una web con otras
             funcionalidades?{" "}
             <Link
-              href="/app/contacto"
+              href="/contacto"
               className="font-semibold text-indigo-600 hover:underline"
             >
               Cuéntanos tu proyecto.
