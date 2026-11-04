@@ -1,21 +1,87 @@
 "use client";
 
-import { type ElementType, type FormEvent, useRef, useState } from "react";
-import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import { type FormEvent, useRef, useState } from "react";
+
 import Link from "next/link";
+
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+
 import { sendGAEvent } from "@next/third-parties/google";
 
 import {
   ArrowRight,
+  ArrowUpRight,
   Check,
+  CheckCircle2,
   CircleAlert,
-  Clock3,
+  ClipboardCheck,
   Lightbulb,
   LoaderCircle,
-  MessagesSquare,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 
+/* =========================================================
+   TIPOS Y CONFIGURACIÓN
+========================================================= */
+
 type FormStatus = "idle" | "loading" | "success" | "error";
+
+const WHATSAPP_URL =
+  "https://wa.me/34633560759?text=" +
+  encodeURIComponent(
+    "Hola, he visitado Novascode y me gustaría consultar un proyecto para mi negocio.",
+  );
+
+const projectOptions = [
+  {
+    value: "web",
+    label: "Quiero una página web para mi negocio",
+  },
+  {
+    value: "ecommerce",
+    label: "Quiero vender por internet",
+  },
+  {
+    value: "software",
+    label: "Necesito una herramienta para gestionar mi empresa",
+  },
+  {
+    value: "app",
+    label: "Quiero desarrollar una aplicación móvil",
+  },
+  {
+    value: "automation",
+    label: "Quiero automatizar tareas o procesos",
+  },
+  {
+    value: "existing",
+    label: "Quiero mejorar un proyecto que ya tengo",
+  },
+  {
+    value: "other",
+    label: "Tengo otra idea",
+  },
+  {
+    value: "unsure",
+    label: "No tengo claro qué solución necesito",
+  },
+] as const;
+
+const examples = [
+  "Quiero que los clientes encuentren mi negocio en internet.",
+  "Necesito mostrar mis servicios y recibir solicitudes de presupuesto.",
+  "Quiero organizar mejor las tareas de mi empresa.",
+  "Tengo una idea para una aplicación o plataforma.",
+] as const;
+
+const inputClassName =
+  "mt-2.5 w-full rounded-xl border border-[#E3E4EE] bg-white px-4 py-3.5 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 hover:border-[#C9C8DD] focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10";
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
 
 export default function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -23,10 +89,19 @@ export default function ContactForm() {
   const [turnstileToken, setTurnstileToken] = useState("");
 
   const turnstileRef = useRef<TurnstileInstance | null>(null);
+
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+
+  /* =======================================================
+     ENVÍO DEL FORMULARIO
+  ======================================================== */
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (status === "loading") {
+      return;
+    }
 
     if (!turnstileSiteKey) {
       setStatus("error");
@@ -46,6 +121,7 @@ export default function ContactForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    // Mantener los campos utilizados por /api/contact.
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
@@ -55,7 +131,7 @@ export default function ContactForm() {
       message: formData.get("message"),
       turnstileToken,
 
-      // Campo antispam oculto
+      // Campo antispam oculto.
       website: formData.get("website"),
     };
 
@@ -77,8 +153,10 @@ export default function ContactForm() {
       setStatus("success");
       form.reset();
 
-      // Registrar conversión solo si el envío ha sido correcto
-      // y el visitante ha aceptado Analytics.
+      /* ===================================================
+         EVENTO DE CONVERSIÓN GA4
+      ==================================================== */
+
       try {
         if (
           window.localStorage.getItem("novascode-analytics-consent") ===
@@ -90,7 +168,7 @@ export default function ContactForm() {
           });
         }
       } catch (analyticsError) {
-        // Analytics no debe afectar al envío del formulario.
+        // Analytics no debe afectar al envío.
         console.warn(
           "No se ha podido registrar el evento de Analytics:",
           analyticsError,
@@ -98,6 +176,7 @@ export default function ContactForm() {
       }
     } catch (error) {
       console.error("Error enviando formulario:", error);
+
       setStatus("error");
 
       setErrorMessage(
@@ -106,35 +185,99 @@ export default function ContactForm() {
           : "No se ha podido enviar el mensaje.",
       );
     } finally {
-      // El token es de un solo uso.
+      // El token Turnstile es de un solo uso.
       turnstileRef.current?.reset();
       setTurnstileToken("");
     }
   }
 
+  /* =======================================================
+     INTERFAZ
+  ======================================================== */
+
   return (
-    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-28">
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-          {/* FORMULARIO */}
-          <div className="rounded-[32px] border border-neutral-200 bg-white p-7 sm:p-9 lg:p-12">
-            <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-indigo-600">
-                Háblanos de tu proyecto
-              </p>
+    <section
+      id="formulario-contacto"
+      aria-labelledby="contact-form-title"
+      className="relative isolate overflow-hidden bg-[#F7F8FC] py-16 sm:py-20 lg:py-24"
+    >
+      {/* FONDO DECORATIVO */}
 
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.035em] text-neutral-950 sm:text-4xl">
-                Empecemos por conocerte un poco mejor.
-              </h2>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+      >
+        <div className="absolute -right-40 top-0 h-96 w-96 rounded-full bg-indigo-200/30 blur-[100px]" />
 
-              <p className="mt-4 text-base leading-7 text-neutral-600">
-                Cuéntanos qué necesitas. No hace falta que tengas definida la
-                tecnología, las funcionalidades ni todos los detalles.
-              </p>
+        <div className="absolute -left-40 bottom-0 h-96 w-96 rounded-full bg-violet-200/20 blur-[100px]" />
+      </div>
+
+      <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        {/* ===================================================
+            ENCABEZADO
+        ==================================================== */}
+
+        <div className="mx-auto mb-12 max-w-3xl text-center sm:mb-14">
+          <div className="inline-flex items-center gap-2 text-indigo-600">
+            <Sparkles size={17} strokeWidth={1.8} />
+
+            <span className="text-xs font-bold uppercase tracking-[0.16em]">
+              Tu proyecto empieza aquí
+            </span>
+          </div>
+
+          <h2
+            id="contact-form-title"
+            className="mt-5 text-[clamp(2.25rem,4.5vw,3.8rem)] font-bold leading-[1.1] tracking-[-0.055em] text-neutral-950"
+          >
+            Cuéntanos tu idea.
+            <br />
+            <span className="text-indigo-600">Nosotros te orientamos.</span>
+          </h2>
+
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-neutral-600 sm:text-lg">
+            No necesitas preparar un documento técnico ni tener todo decidido.
+            Explícanos qué necesita tu negocio y podremos estudiar contigo la
+            mejor opción.
+          </p>
+        </div>
+
+        {/* ===================================================
+            FORMULARIO Y PANEL DE AYUDA
+        ==================================================== */}
+
+        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10">
+          {/* =================================================
+              FORMULARIO
+          ================================================== */}
+
+          <div className="min-w-0 rounded-[26px] border border-[#E6E7F0] bg-white p-6 shadow-[0_20px_65px_-45px_rgba(20,20,50,0.2)] sm:p-9 lg:p-10">
+            {/* ENCABEZADO DEL FORMULARIO */}
+
+            <div className="flex items-start gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+                <MessageCircle size={22} strokeWidth={1.8} />
+              </span>
+
+              <div>
+                <h3 className="text-xl font-bold tracking-[-0.035em] text-neutral-950 sm:text-2xl">
+                  Hablemos de tu proyecto
+                </h3>
+
+                <p className="mt-2 text-sm leading-7 text-neutral-600">
+                  Rellena los datos básicos y cuéntanos brevemente qué
+                  necesitas.
+                </p>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-10 space-y-6">
-              {/* Honeypot antispam */}
+            {/* =================================================
+                FORMULARIO HTML
+            ================================================== */}
+
+            <form onSubmit={handleSubmit} className="mt-9 space-y-6">
+              {/* HONEYPOT ANTISPAM */}
+
               <div
                 className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
                 aria-hidden="true"
@@ -150,164 +293,219 @@ export default function ContactForm() {
                 />
               </div>
 
-              {/* Nombre + Email */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="text-sm font-semibold text-neutral-800"
-                  >
-                    Nombre *
-                  </label>
+              {/* ===============================================
+                  DATOS DE CONTACTO
+              ================================================ */}
 
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    maxLength={100}
-                    placeholder="Tu nombre"
-                    className="mt-2.5 w-full rounded-2xl border border-neutral-200 bg-white px-4 py-3.5 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-semibold text-neutral-800"
-                  >
-                    Email *
-                  </label>
-
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    maxLength={200}
-                    placeholder="nombre@empresa.com"
-                    className="mt-2.5 w-full rounded-2xl border border-neutral-200 bg-white px-4 py-3.5 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
-                  />
-                </div>
-              </div>
-
-              {/* Teléfono + Empresa */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="text-sm font-semibold text-neutral-800"
-                  >
-                    Teléfono
-                  </label>
-
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    maxLength={50}
-                    placeholder="+34 600 000 000"
-                    className="mt-2.5 w-full rounded-2xl border border-neutral-200 bg-white px-4 py-3.5 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="company"
-                    className="text-sm font-semibold text-neutral-800"
-                  >
-                    Empresa
-                  </label>
-
-                  <input
-                    id="company"
-                    name="company"
-                    type="text"
-                    maxLength={150}
-                    placeholder="Nombre de tu empresa"
-                    className="mt-2.5 w-full rounded-2xl border border-neutral-200 bg-white px-4 py-3.5 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
-                  />
-                </div>
-              </div>
-
-              {/* Tipo de proyecto */}
               <div>
-                <label
-                  htmlFor="projectType"
-                  className="text-sm font-semibold text-neutral-800"
-                >
-                  ¿En qué podemos ayudarte? *
-                </label>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">
+                  01 · Cómo podemos contactar contigo
+                </p>
 
-                <select
-                  id="projectType"
-                  name="projectType"
-                  required
-                  defaultValue=""
-                  className="mt-2.5 w-full rounded-2xl border border-neutral-200 bg-white px-4 py-3.5 text-sm text-neutral-700 outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
-                >
-                  <option value="" disabled>
-                    Selecciona una opción
-                  </option>
+                <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                  {/* NOMBRE */}
 
-                  <option value="web">Web corporativa</option>
-                  <option value="ecommerce">Tienda online / e-commerce</option>
-                  <option value="software">Software a medida</option>
-                  <option value="app">Aplicación móvil</option>
-                  <option value="automation">
-                    Automatización e integraciones
-                  </option>
-                  <option value="existing">
-                    Mejorar un proyecto existente
-                  </option>
-                  <option value="other">Tengo una idea diferente</option>
-                  <option value="unsure">No sé exactamente qué necesito</option>
-                </select>
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="text-sm font-semibold text-neutral-800"
+                    >
+                      Tu nombre <span className="text-indigo-600">*</span>
+                    </label>
+
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      required
+                      maxLength={100}
+                      placeholder="¿Cómo te llamas?"
+                      className={inputClassName}
+                    />
+                  </div>
+
+                  {/* EMAIL */}
+
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="text-sm font-semibold text-neutral-800"
+                    >
+                      Correo electrónico{" "}
+                      <span className="text-indigo-600">*</span>
+                    </label>
+
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      maxLength={200}
+                      placeholder="nombre@empresa.com"
+                      className={inputClassName}
+                    />
+                  </div>
+
+                  {/* TELÉFONO */}
+
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="text-sm font-semibold text-neutral-800"
+                    >
+                      Teléfono{" "}
+                      <span className="font-normal text-neutral-400">
+                        (opcional)
+                      </span>
+                    </label>
+
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel"
+                      maxLength={50}
+                      placeholder="+34 600 000 000"
+                      className={inputClassName}
+                    />
+                  </div>
+
+                  {/* EMPRESA */}
+
+                  <div>
+                    <label
+                      htmlFor="company"
+                      className="text-sm font-semibold text-neutral-800"
+                    >
+                      Nombre del negocio{" "}
+                      <span className="font-normal text-neutral-400">
+                        (opcional)
+                      </span>
+                    </label>
+
+                    <input
+                      id="company"
+                      name="company"
+                      type="text"
+                      autoComplete="organization"
+                      maxLength={150}
+                      placeholder="Nombre de tu empresa"
+                      className={inputClassName}
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Mensaje */}
+              {/* SEPARADOR */}
+
+              <div className="border-t border-neutral-100" />
+
+              {/* ===============================================
+                  INFORMACIÓN DEL PROYECTO
+              ================================================ */}
+
               <div>
-                <label
-                  htmlFor="message"
-                  className="text-sm font-semibold text-neutral-800"
-                >
-                  Cuéntanos tu idea *
-                </label>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-indigo-600">
+                  02 · Qué necesitas
+                </p>
 
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  maxLength={5000}
-                  rows={6}
-                  placeholder="Explícanos brevemente qué quieres crear, mejorar o solucionar..."
-                  className="mt-2.5 w-full resize-none rounded-2xl border border-neutral-200 bg-white px-4 py-3.5 text-sm leading-6 text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"
-                />
+                {/* TIPO DE PROYECTO */}
+
+                <div className="mt-5">
+                  <label
+                    htmlFor="projectType"
+                    className="text-sm font-semibold text-neutral-800"
+                  >
+                    ¿En qué podemos ayudarte?{" "}
+                    <span className="text-indigo-600">*</span>
+                  </label>
+
+                  <select
+                    id="projectType"
+                    name="projectType"
+                    required
+                    defaultValue=""
+                    className={inputClassName}
+                  >
+                    <option value="" disabled>
+                      Selecciona lo que más se parece a tu idea
+                    </option>
+
+                    {projectOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+
+                  <p className="mt-2.5 text-xs leading-6 text-neutral-500">
+                    Si no tienes claro qué elegir, puedes seleccionar la última
+                    opción.
+                  </p>
+                </div>
+
+                {/* MENSAJE */}
+
+                <div className="mt-6">
+                  <label
+                    htmlFor="message"
+                    className="text-sm font-semibold text-neutral-800"
+                  >
+                    Cuéntanos un poco más{" "}
+                    <span className="text-indigo-600">*</span>
+                  </label>
+
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    maxLength={5000}
+                    rows={5}
+                    placeholder="Por ejemplo: Tengo una empresa de reformas y quiero una web donde mis clientes puedan conocer nuestros servicios, ver algunos trabajos y pedir presupuesto..."
+                    className={`${inputClassName} min-h-[150px] resize-y leading-7`}
+                  />
+
+                  <p className="mt-2.5 text-xs leading-6 text-neutral-500">
+                    Puedes explicarlo con tus palabras. No hace falta que
+                    conozcas los términos técnicos.
+                  </p>
+                </div>
               </div>
 
-              {/* Privacidad */}
-              <label className="flex cursor-pointer items-start gap-3">
-                <input
-                  type="checkbox"
-                  name="privacy"
-                  required
-                  className="mt-1 h-4 w-4 rounded border-neutral-300 accent-indigo-600"
-                />
+              {/* ===============================================
+                  PRIVACIDAD
+              ================================================ */}
 
-                <span className="text-sm leading-6 text-neutral-500">
-                  He leído y acepto la{" "}
-                  <Link
-                    href="/privacidad"
-                    target="_blank"
-                    className="font-medium text-indigo-600 hover:underline"
-                  >
-                    Política de Privacidad
-                  </Link>
-                  . *
-                </span>
-              </label>
+              <div className="border-t border-neutral-100 pt-6">
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="privacy"
+                    required
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-neutral-300 accent-indigo-600"
+                  />
 
-              {/* Cloudflare Turnstile */}
+                  <span className="text-sm leading-7 text-neutral-600">
+                    He leído y acepto la{" "}
+                    <Link
+                      href="/privacidad"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-indigo-600 hover:underline"
+                    >
+                      Política de privacidad
+                    </Link>
+                    . <span className="text-indigo-600">*</span>
+                  </span>
+                </label>
+              </div>
+
+              {/* ===============================================
+                  CLOUDFLARE TURNSTILE
+              ================================================ */}
+
               <div className="space-y-3">
                 <p className="text-sm font-semibold text-neutral-800">
                   Verificación de seguridad
@@ -330,10 +528,13 @@ export default function ContactForm() {
                         setErrorMessage("");
                       }
                     }}
-                    onExpire={() => setTurnstileToken("")}
+                    onExpire={() => {
+                      setTurnstileToken("");
+                    }}
                     onError={() => {
                       setTurnstileToken("");
                       setStatus("error");
+
                       setErrorMessage(
                         "No se ha podido verificar la seguridad. Vuelve a intentarlo.",
                       );
@@ -346,68 +547,96 @@ export default function ContactForm() {
                 )}
               </div>
 
-              {/* Botón */}
-              <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
+              {/* ===============================================
+                  ENVIAR CONSULTA
+              ================================================ */}
+
+              <div className="border-t border-neutral-100 pt-6">
                 <button
                   type="submit"
-                  disabled={status === "loading"}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-950 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-600 disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={status === "loading" || !turnstileSiteKey}
+                  className="group inline-flex min-h-[54px] w-full items-center justify-center gap-3 rounded-xl bg-[#6952F5] px-7 py-4 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#806BFF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto"
                 >
                   {status === "loading" ? (
                     <>
-                      <LoaderCircle size={17} className="animate-spin" />
-                      Enviando...
+                      <LoaderCircle size={18} className="animate-spin" />
+                      Enviando consulta...
                     </>
                   ) : (
                     <>
-                      Enviar consulta
-                      <ArrowRight size={17} />
+                      Quiero hablar de mi proyecto
+                      <ArrowRight
+                        size={18}
+                        className="transition-transform duration-200 group-hover:translate-x-1"
+                      />
                     </>
                   )}
                 </button>
 
-                <p className="text-xs leading-5 text-neutral-400">
-                  Sin compromiso · Contacto directo
-                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-neutral-500">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check size={14} className="text-indigo-600" />
+                    Sin compromiso
+                  </span>
+
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check size={14} className="text-indigo-600" />
+                    Trato directo
+                  </span>
+                </div>
               </div>
 
-              {/* ÉXITO */}
+              {/* ===============================================
+                  MENSAJE DE ÉXITO
+              ================================================ */}
+
               {status === "success" && (
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4">
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5"
+                >
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
-                      <Check size={13} />
-                    </div>
+                    <CheckCircle2
+                      size={22}
+                      className="mt-0.5 shrink-0 text-emerald-600"
+                    />
 
                     <div>
-                      <p className="text-sm font-semibold text-neutral-950">
-                        Mensaje enviado correctamente.
+                      <p className="text-sm font-bold text-neutral-950">
+                        Tu consulta se ha enviado correctamente.
                       </p>
 
-                      <p className="mt-1 text-sm leading-6 text-neutral-600">
-                        Hemos recibido tu consulta. Nos pondremos en contacto
-                        contigo lo antes posible.
+                      <p className="mt-2 text-sm leading-7 text-neutral-600">
+                        Hemos recibido tu mensaje. Revisaremos tu consulta y nos
+                        pondremos en contacto contigo lo antes posible.
                       </p>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* ERROR */}
+              {/* ===============================================
+                  MENSAJE DE ERROR
+              ================================================ */}
+
               {status === "error" && (
-                <div className="rounded-2xl border border-red-200 bg-red-50 px-5 py-4">
+                <div
+                  role="alert"
+                  className="rounded-2xl border border-red-200 bg-red-50 p-5"
+                >
                   <div className="flex items-start gap-3">
                     <CircleAlert
-                      size={18}
+                      size={21}
                       className="mt-0.5 shrink-0 text-red-600"
                     />
 
                     <div>
-                      <p className="text-sm font-semibold text-neutral-950">
-                        No hemos podido enviar el mensaje.
+                      <p className="text-sm font-bold text-neutral-950">
+                        No hemos podido enviar tu consulta.
                       </p>
 
-                      <p className="mt-1 text-sm leading-6 text-neutral-600">
+                      <p className="mt-2 text-sm leading-7 text-neutral-600">
                         {errorMessage}
                       </p>
                     </div>
@@ -417,97 +646,143 @@ export default function ContactForm() {
             </form>
           </div>
 
-          {/* PARTE DERECHA */}
-          <div className="lg:pt-6">
-            <div className="lg:sticky lg:top-28">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-indigo-600">
+          {/* =================================================
+              PANEL DERECHO
+          ================================================== */}
+
+          <aside className="min-w-0 lg:sticky lg:top-28">
+            {/* PANEL PRINCIPAL */}
+
+            <div className="relative isolate overflow-hidden rounded-[26px] bg-[#11111B] p-7 text-white sm:p-9">
+              {/* RESPLANDOR */}
+
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -z-10"
+              >
+                <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-indigo-600/20 blur-[85px]" />
+              </div>
+
+              {/* ENCABEZADO */}
+
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#302A4F] text-[#B8AAFF]">
+                <Lightbulb size={24} strokeWidth={1.8} />
+              </div>
+
+              <p className="mt-7 text-xs font-bold uppercase tracking-[0.15em] text-[#B8AAFF]">
                 No hace falta tenerlo todo claro
               </p>
 
-              <h3 className="mt-5 text-3xl font-semibold tracking-[-0.03em] text-neutral-950 sm:text-4xl">
-                Cuéntanos el problema. Nosotros pensamos en la solución.
+              <h3 className="mt-4 text-2xl font-bold leading-[1.2] tracking-[-0.04em] sm:text-3xl">
+                Empecemos por lo que necesita tu negocio.
               </h3>
 
-              <p className="mt-5 text-base leading-7 text-neutral-600">
-                Puedes contactar aunque tu proyecto esté todavía en una fase
-                inicial. Lo primero es entender qué quieres conseguir.
+              <p className="mt-5 text-sm leading-8 text-[#B9B7C9] sm:text-[15px]">
+                A veces lo más difícil es saber por dónde empezar. Puedes
+                contarnos qué te preocupa, qué quieres mejorar o qué idea llevas
+                tiempo pensando desarrollar.
               </p>
 
-              <div className="mt-10 space-y-4">
-                <InfoCard
-                  icon={Lightbulb}
-                  title="Puede ser solo una idea"
-                  description="No necesitas tener definido cómo debe desarrollarse ni qué tecnologías utilizar."
-                />
+              {/* EJEMPLOS */}
 
-                <InfoCard
-                  icon={MessagesSquare}
-                  title="Hablamos directamente"
-                  description="Podremos comentar tus necesidades, resolver dudas y definir juntos el alcance del proyecto."
-                />
+              <div className="mt-8 border-t border-white/10 pt-7">
+                <p className="text-sm font-bold text-white">
+                  Por ejemplo, puedes decirnos:
+                </p>
 
-                <InfoCard
-                  icon={Clock3}
-                  title="Sin procesos complicados"
-                  description="Analizamos lo necesario y planteamos una propuesta clara antes de comenzar el desarrollo."
-                />
+                <div className="mt-5 space-y-3">
+                  {examples.map((example) => (
+                    <div
+                      key={example}
+                      className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.045] p-4"
+                    >
+                      <Check
+                        size={16}
+                        strokeWidth={2}
+                        className="mt-1 shrink-0 text-[#B9ADFF]"
+                      />
+
+                      <p className="text-sm leading-6 text-[#D4D1E2]">
+                        {example}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {/* WhatsApp */}
-              <div className="mt-8 overflow-hidden rounded-[28px] bg-neutral-950 p-7 text-white">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-400">
-                  ¿Prefieres algo más rápido?
+              {/* CIERRE */}
+
+              <div className="mt-8 border-t border-white/10 pt-6">
+                <p className="text-sm font-semibold leading-7 text-white">
+                  No tienes que elegir la solución técnica.
                 </p>
 
-                <h4 className="mt-3 text-xl font-semibold">
-                  Escríbenos directamente por WhatsApp.
-                </h4>
-
-                <p className="mt-3 text-sm leading-6 text-neutral-400">
-                  Puedes explicarnos brevemente qué necesitas y continuamos la
-                  conversación desde ahí.
+                <p className="mt-2 text-sm leading-7 text-[#B4B2C5]">
+                  Primero entendemos tu situación. Después valoramos contigo qué
+                  alternativa tiene más sentido.
                 </p>
+              </div>
 
-                <a
-                  href="https://wa.me/34633560759"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-indigo-400"
-                >
-                  Abrir WhatsApp
-                  <ArrowRight size={16} />
-                </a>
+              {/* LÍNEA DECORATIVA */}
+
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 h-[3px] bg-gradient-to-r from-[#6952F5] via-[#9A8AFF] to-transparent"
+              />
+            </div>
+
+            {/* =================================================
+                BLOQUE DE CONFIANZA
+            ================================================== */}
+
+            <div className="mt-5 rounded-2xl border border-[#E5E6EF] bg-white p-6 sm:p-7">
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                  <ClipboardCheck size={21} strokeWidth={1.8} />
+                </span>
+
+                <div>
+                  <p className="text-base font-bold text-neutral-950">
+                    Antes de comenzar, todo claro.
+                  </p>
+
+                  <p className="mt-3 text-sm leading-7 text-neutral-600">
+                    Te explicaremos qué podemos hacer, qué incluye nuestra
+                    propuesta, cuánto costaría y cuáles serían los plazos
+                    previstos.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 flex items-center gap-2 text-xs font-medium text-neutral-500">
+                <ShieldCheck size={17} className="text-indigo-600" />
+                Tu consulta no supone ningún compromiso.
               </div>
             </div>
-          </div>
+
+            {/* WHATSAPP ALTERNATIVO */}
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-neutral-600">
+                ¿Prefieres escribirnos directamente?
+              </p>
+
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-3 inline-flex min-h-11 items-center justify-center gap-2 text-sm font-bold text-indigo-600 no-underline transition-colors hover:text-indigo-800"
+              >
+                Hablar por WhatsApp
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
-  );
-}
-
-function InfoCard({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: ElementType;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex gap-4 rounded-[24px] border border-neutral-200 bg-white p-5">
-      <div className="h-11 w-11 shrink-0 rounded-2xl border-0 bg-indigo-50 flex items-center justify-center text-indigo-600">
-        <Icon size={19} strokeWidth={1.8} />
-      </div>
-
-      <div>
-        <p className="text-sm font-semibold text-neutral-950">{title}</p>
-
-        <p className="mt-1.5 text-sm leading-6 text-neutral-500">
-          {description}
-        </p>
-      </div>
-    </div>
   );
 }
