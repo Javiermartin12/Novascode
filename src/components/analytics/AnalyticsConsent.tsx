@@ -10,7 +10,6 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 ========================================================= */
 
 const GA_ID = "G-2D01RSFZ43";
-const ADS_ID = "AW-18545002441";
 
 // Nueva versión: solicitar consentimiento para Analytics y Ads.
 const STORAGE_KEY = "novascode-measurement-consent-v2";
@@ -143,19 +142,20 @@ export default function AnalyticsConsent() {
 
           <Script id="novascode-google-ads-config" strategy="afterInteractive">
             {`
-              window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
 
-              window.dataLayer.push([
-                "set",
-                "allow_ad_personalization_signals",
-                false
-              ]);
+    window.gtag = window.gtag || function() {
+      window.dataLayer.push(arguments);
+    };
 
-              window.dataLayer.push([
-                "config",
-                "${ADS_ID}"
-              ]);
-            `}
+    window.gtag(
+      "set",
+      "allow_ad_personalization_signals",
+      false
+    );
+
+    window.gtag("config", "AW-18545002441");
+  `}
           </Script>
         </>
       )}
