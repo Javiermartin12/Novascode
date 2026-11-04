@@ -89,31 +89,6 @@ const offers = [
 ] as const;
 
 /* =========================================================
-   PASOS DEL PROCESO
-========================================================= */
-
-const steps = [
-  {
-    number: "01",
-    title: "Cuéntanos tu negocio",
-    description:
-      "Nos explicas a qué te dedicas, qué necesitas y cómo quieres que contacten contigo.",
-  },
-  {
-    number: "02",
-    title: "Preparamos tu propuesta",
-    description:
-      "Te explicamos la opción que mejor encaja, qué incluye, el precio y los plazos.",
-  },
-  {
-    number: "03",
-    title: "Creamos tu página web",
-    description:
-      "Desarrollamos tu web, revisamos el resultado contigo y preparamos su publicación.",
-  },
-] as const;
-
-/* =========================================================
    LAUNCH OFFER
 ========================================================= */
 
@@ -424,50 +399,6 @@ export default function LaunchOffer() {
               </article>
             );
           })}
-        </div>
-
-        {/* ===================================================
-            PROCESO COMERCIAL
-        ==================================================== */}
-
-        <div className="mx-auto mt-20 max-w-6xl border-t border-[#DFE1EC] pt-14 sm:mt-24 sm:pt-16">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-600">
-              Así trabajamos
-            </p>
-
-            <h3 className="mt-4 text-2xl font-bold tracking-[-0.04em] text-neutral-950 sm:text-3xl">
-              Tú conoces tu negocio.
-              <br />
-              Nosotros nos encargamos de la web.
-            </h3>
-
-            <p className="mt-5 text-sm leading-7 text-neutral-600 sm:text-base">
-              Queremos que contratar tu página web sea un proceso sencillo, con
-              comunicación directa y sin dudas sobre lo que vas a recibir.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {steps.map((step) => (
-              <div
-                key={step.number}
-                className="rounded-2xl border border-[#E5E6EF] bg-white p-6 sm:p-7"
-              >
-                <span className="text-sm font-bold tracking-[0.08em] text-indigo-600">
-                  {step.number}
-                </span>
-
-                <h4 className="mt-5 text-base font-bold text-neutral-950">
-                  {step.title}
-                </h4>
-
-                <p className="mt-3 text-sm leading-7 text-neutral-600">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* ===================================================
