@@ -1,242 +1,283 @@
-"use client";
+import Link from "next/link";
 
 import {
-  AppWindow,
+  ArrowRight,
+  ArrowUpRight,
   CalendarDays,
-  LayoutDashboard,
-  ShoppingBag,
-  Smartphone,
+  Check,
+  ClipboardList,
+  MessageCircle,
+  MessagesSquare,
+  Sparkles,
   Workflow,
 } from "lucide-react";
 
+/* =========================================================
+   SITUACIONES DE NEGOCIO
+========================================================= */
+
+const scenarios = [
+  {
+    id: "contacto",
+    number: "01",
+    icon: MessagesSquare,
+    category: "Atención al cliente",
+    problem: "Tus clientes te preguntan siempre lo mismo.",
+    current:
+      "Te escriben para consultar qué servicios ofreces, dónde trabajas, tus horarios o cómo pueden pedirte presupuesto.",
+    solution:
+      "Una web donde encuentren la información que necesitan y puedan contactar contigo directamente.",
+    benefit: "Información clara y contacto más sencillo.",
+  },
+  {
+    id: "reservas",
+    number: "02",
+    icon: CalendarDays,
+    category: "Reservas y organización",
+    problem: "Organizas tus citas entre llamadas y mensajes.",
+    current:
+      "Tienes que comprobar la disponibilidad, responder consultas y anotar cada reserva manualmente.",
+    solution:
+      "Un sistema de reservas que centralice tu agenda y facilite a los clientes solicitar una cita.",
+    benefit: "Una agenda más organizada y fácil de gestionar.",
+  },
+  {
+    id: "gestion",
+    number: "03",
+    icon: ClipboardList,
+    category: "Gestión empresarial",
+    problem: "Tu equipo pierde tiempo con tareas repetitivas.",
+    current:
+      "La información está repartida entre hojas de cálculo, correos y programas que no se comunican entre sí.",
+    solution:
+      "Una herramienta de gestión o automatización que reúna la información y simplifique los procesos.",
+    benefit: "Menos trabajo manual y más control.",
+  },
+] as const;
+
+/* =========================================================
+   TARJETA DE SITUACIÓN
+========================================================= */
+
+type Scenario = (typeof scenarios)[number];
+
+type ScenarioCardProps = {
+  scenario: Scenario;
+};
+
+function ScenarioCard({ scenario }: ScenarioCardProps) {
+  const Icon = scenario.icon;
+
+  return (
+    <article className="group overflow-hidden rounded-[26px] border border-[#E4E5EF] bg-white shadow-[0_20px_60px_-45px_rgba(20,20,50,0.18)] transition-all duration-300 hover:border-indigo-200 hover:shadow-[0_25px_65px_-40px_rgba(60,45,150,0.17)]">
+      {/* CABECERA */}
+
+      <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-start sm:gap-6 sm:p-8">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+          <Icon size={22} strokeWidth={1.8} />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-indigo-600">
+              {scenario.category}
+            </p>
+
+            <span className="text-xs font-semibold text-neutral-300">
+              {scenario.number}
+            </span>
+          </div>
+
+          <h3 className="mt-4 max-w-2xl text-[clamp(1.4rem,2vw,1.8rem)] font-bold leading-[1.2] tracking-[-0.04em] text-neutral-950">
+            {scenario.problem}
+          </h3>
+        </div>
+      </div>
+
+      {/* ANTES Y POSIBLE SOLUCIÓN */}
+
+      <div className="grid border-t border-[#E9EAF2] md:grid-cols-2">
+        {/* SITUACIÓN ACTUAL */}
+
+        <div className="bg-[#FAFAFC] p-6 sm:p-8">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-neutral-400" />
+
+            <p className="text-[11px] font-bold uppercase tracking-[0.13em] text-neutral-500">
+              Lo que ocurre ahora
+            </p>
+          </div>
+
+          <p className="max-w-lg text-sm leading-7 text-neutral-600 sm:text-[15px]">
+            {scenario.current}
+          </p>
+        </div>
+
+        {/* SOLUCIÓN */}
+
+        <div className="relative border-t border-[#E9EAF2] bg-[#F2F0FF] p-6 md:border-l md:border-t-0 sm:p-8">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-600 text-white">
+              <Check size={12} strokeWidth={2.5} />
+            </span>
+
+            <p className="text-[11px] font-bold uppercase tracking-[0.13em] text-indigo-700">
+              Cómo podemos ayudarte
+            </p>
+          </div>
+
+          <p className="max-w-lg text-sm leading-7 text-[#37334E] sm:text-[15px]">
+            {scenario.solution}
+          </p>
+
+          <p className="mt-5 inline-flex items-center gap-2 text-xs font-bold leading-6 text-indigo-700 sm:text-sm">
+            <ArrowRight size={16} strokeWidth={2} />
+            {scenario.benefit}
+          </p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/* =========================================================
+   SOLUTIONS - NOVASCODE
+========================================================= */
+
 export default function Solutions() {
   return (
-    <section className="bg-white py-24 sm:py-28">
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-indigo-600">
-            De la idea a una solución real
-          </p>
+    <section
+      id="soluciones"
+      aria-labelledby="novascode-solutions-title"
+      className="relative isolate overflow-hidden bg-[#F7F8FC] py-20 text-neutral-950 sm:py-24 lg:py-28"
+    >
+      {/* =====================================================
+          FONDO DECORATIVO
+      ====================================================== */}
 
-          <h2 className="mt-5 text-4xl font-semibold tracking-[-0.035em] text-neutral-950 sm:text-5xl lg:text-6xl">
-            Tecnología adaptada a{" "}
-            <span className="text-indigo-600">cada negocio.</span>
-          </h2>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+      >
+        <div className="absolute -left-40 top-0 h-[420px] w-[420px] rounded-full bg-indigo-200/25 blur-[110px]" />
 
-          <p className="mt-6 max-w-2xl text-base leading-7 text-neutral-600 sm:text-lg">
-            Desde una web corporativa hasta una aplicación completa. Diseñamos
-            cada solución según lo que realmente necesita tu empresa.
-          </p>
+        <div className="absolute -right-40 bottom-0 h-[400px] w-[400px] rounded-full bg-violet-200/25 blur-[110px]" />
+      </div>
+
+      <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        {/* ===================================================
+            ENCABEZADO
+        ==================================================== */}
+
+        <div className="grid items-end gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+          <div className="max-w-3xl">
+            <div className="mb-6 inline-flex items-center gap-2 text-indigo-600">
+              <Sparkles size={18} strokeWidth={1.8} />
+
+              <span className="text-xs font-bold uppercase tracking-[0.16em]">
+                Aplicaciones para tu negocio
+              </span>
+            </div>
+
+            <h2
+              id="novascode-solutions-title"
+              className="text-[clamp(2.35rem,4.5vw,4.3rem)] font-bold leading-[1.1] tracking-[-0.055em]"
+            >
+              Menos complicaciones.
+              <br />
+              <span className="text-indigo-600">
+                Más tiempo para tu negocio.
+              </span>
+            </h2>
+          </div>
+
+          <div className="max-w-xl lg:pb-2">
+            <p className="text-base leading-8 text-neutral-600 sm:text-lg sm:leading-9">
+              A veces sabes que algo podría funcionar mejor, pero no tienes
+              claro cómo solucionarlo. Aquí tienes algunos ejemplos de
+              situaciones habituales en las que una herramienta digital puede
+              ayudarte.
+            </p>
+          </div>
         </div>
 
-        {/* Bento grid */}
-        <div className="mt-14 grid gap-4 lg:grid-cols-12">
-          {/* WEB */}
-          <article className="group relative overflow-hidden rounded-[30px] border border-neutral-200 bg-neutral-50 p-7 lg:col-span-7 lg:min-h-[430px]">
-            <div className="relative z-10 max-w-md">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-indigo-600 shadow-sm">
-                <AppWindow size={20} />
+        {/* ===================================================
+            LISTADO DE SITUACIONES
+        ==================================================== */}
+
+        <div className="mt-12 space-y-5 sm:mt-14">
+          {scenarios.map((scenario) => (
+            <ScenarioCard key={scenario.id} scenario={scenario} />
+          ))}
+        </div>
+
+        {/* ===================================================
+            CIERRE COMERCIAL
+        ==================================================== */}
+
+        <div className="relative mt-14 overflow-hidden rounded-[28px] bg-[#141420] p-7 text-white sm:p-10 lg:mt-16 lg:p-12">
+          {/* DECORACIÓN */}
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-28 h-80 w-80 rounded-full bg-indigo-600/20 blur-[90px]"
+          />
+
+          <div className="relative grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+            <div className="max-w-2xl">
+              <div className="mb-5 flex items-center gap-2 text-[#B8ACFF]">
+                <Workflow size={17} strokeWidth={1.8} />
+
+                <p className="text-xs font-bold uppercase tracking-[0.16em]">
+                  Tu negocio es diferente
+                </p>
               </div>
 
-              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                Web corporativa
-              </p>
-
-              <h3 className="mt-2 text-2xl font-semibold tracking-[-0.025em] text-neutral-950">
-                Convierte tu presencia digital en una herramienta de negocio.
+              <h3 className="text-2xl font-bold leading-[1.2] tracking-[-0.04em] sm:text-3xl">
+                ¿Hay algo que te gustaría hacer más fácil?
               </h3>
-            </div>
 
-            {/* Fake browser */}
-            <div className="mt-10 overflow-hidden rounded-[24px] border border-neutral-200 bg-white shadow-xl transition duration-500 group-hover:-translate-y-1">
-              <div className="flex items-center gap-2 border-b border-neutral-100 px-5 py-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
-                <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
-                <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
-                <div className="ml-3 h-7 flex-1 rounded-full bg-neutral-100" />
-              </div>
-
-              <div className="grid grid-cols-[1.2fr_0.8fr] gap-5 p-6">
-                <div>
-                  <div className="h-4 w-24 rounded-full bg-indigo-100" />
-                  <div className="mt-4 h-6 w-full rounded-full bg-neutral-900" />
-                  <div className="mt-3 h-6 w-4/5 rounded-full bg-neutral-900" />
-                  <div className="mt-5 h-3 w-full rounded-full bg-neutral-100" />
-                  <div className="mt-2 h-3 w-3/4 rounded-full bg-neutral-100" />
-
-                  <div className="mt-6 h-10 w-32 rounded-full bg-indigo-600" />
-                </div>
-
-                <div className="rounded-2xl bg-gradient-to-br from-indigo-100 to-violet-100" />
-              </div>
-            </div>
-          </article>
-
-          {/* MOBILE APP */}
-          <article className="relative overflow-hidden rounded-[30px] bg-indigo-600 p-7 text-white lg:col-span-5 lg:min-h-[430px]">
-            <div>
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white">
-                <Smartphone size={20} />
-              </div>
-
-              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-200">
-                Apps móviles
+              <p className="mt-5 text-sm leading-8 text-[#BDBBCC] sm:text-base">
+                No hace falta que tengas una idea técnica ni una solución
+                definida. Explícanos qué te está dando problemas y podremos
+                valorar contigo qué opciones existen.
               </p>
-
-              <h3 className="mt-2 max-w-sm text-2xl font-semibold tracking-[-0.025em]">
-                Lleva tus servicios directamente al bolsillo de tus clientes.
-              </h3>
             </div>
 
-            {/* Phone mockup */}
-            <div className="mx-auto mt-8 w-[190px] rounded-[34px] border-4 border-white/20 bg-white p-3 shadow-2xl">
-              <div className="mx-auto h-1.5 w-12 rounded-full bg-neutral-200" />
+            {/* ACCIONES */}
 
-              <div className="mt-5 rounded-2xl bg-neutral-950 p-4">
-                <div className="h-3 w-16 rounded-full bg-indigo-400" />
-                <div className="mt-4 h-16 rounded-xl bg-white/10" />
-                <div className="mt-3 h-10 rounded-xl bg-indigo-500" />
-                <div className="mt-3 grid grid-cols-2 gap-2">
-                  <div className="h-16 rounded-xl bg-white/10" />
-                  <div className="h-16 rounded-xl bg-white/10" />
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {/* BOOKING */}
-          <article className="rounded-[30px] border border-neutral-200 bg-white p-7 lg:col-span-4">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-              <CalendarDays size={20} />
-            </div>
-
-            <p className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-              Reservas y citas
-            </p>
-
-            <h3 className="mt-2 text-xl font-semibold text-neutral-950">
-              Menos llamadas. Más control de tu agenda.
-            </h3>
-
-            <div className="mt-7 grid grid-cols-4 gap-2">
-              {Array.from({ length: 12 }).map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-10 rounded-xl ${
-                    index === 5 || index === 9
-                      ? "bg-indigo-600"
-                      : "bg-neutral-100"
-                  }`}
+            <div className="flex w-full flex-col gap-3 sm:w-auto">
+              <Link
+                href="/contacto"
+                className="group inline-flex min-h-[54px] items-center justify-center gap-3 rounded-xl bg-[#6952F5] px-7 py-4 text-sm font-bold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#806BFF] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Cuéntanos qué necesitas
+                <ArrowUpRight
+                  size={18}
+                  className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
-              ))}
+              </Link>
+
+              <a
+                href="https://wa.me/34633560759?text=Hola%2C%20tengo%20una%20idea%20para%20mejorar%20la%20gesti%C3%B3n%20de%20mi%20negocio%20y%20me%20gustar%C3%ADa%20consultarla."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-[#C7BDFF] no-underline transition-colors hover:text-white"
+              >
+                <MessageCircle size={18} strokeWidth={1.8} />
+                Hablar por WhatsApp
+              </a>
             </div>
-          </article>
-
-          {/* SOFTWARE */}
-          <article className="rounded-[30px] bg-neutral-950 p-7 text-white lg:col-span-5">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-indigo-300">
-              <LayoutDashboard size={20} />
-            </div>
-
-            <p className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
-              Software de gestión
-            </p>
-
-            <h3 className="mt-2 text-xl font-semibold">
-              Centraliza procesos y datos en un solo lugar.
-            </h3>
-
-            <div className="mt-7 grid grid-cols-3 gap-3">
-              <div className="rounded-2xl bg-white/5 p-4">
-                <span className="text-xs text-neutral-500">Clientes</span>
-                <p className="mt-2 text-2xl font-semibold">428</p>
-              </div>
-
-              <div className="rounded-2xl bg-white/5 p-4">
-                <span className="text-xs text-neutral-500">Tareas</span>
-                <p className="mt-2 text-2xl font-semibold">86%</p>
-              </div>
-
-              <div className="rounded-2xl bg-indigo-600 p-4">
-                <span className="text-xs text-indigo-200">Estado</span>
-                <p className="mt-2 text-sm font-semibold">Online</p>
-              </div>
-            </div>
-          </article>
-
-          {/* ECOMMERCE */}
-          <article className="rounded-[30px] border border-neutral-200 bg-neutral-50 p-7 lg:col-span-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-indigo-600 shadow-sm">
-              <ShoppingBag size={20} />
-            </div>
-
-            <p className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-              E-commerce
-            </p>
-
-            <h3 className="mt-2 text-xl font-semibold text-neutral-950">
-              Vende productos y servicios online.
-            </h3>
-
-            <div className="mt-7 space-y-3">
-              <div className="flex gap-3 rounded-2xl bg-white p-3">
-                <div className="h-12 w-12 rounded-xl bg-indigo-50" />
-                <div className="flex-1">
-                  <div className="h-3 w-4/5 rounded-full bg-neutral-200" />
-                  <div className="mt-2 h-3 w-1/2 rounded-full bg-neutral-100" />
-                </div>
-              </div>
-
-              <div className="flex gap-3 rounded-2xl bg-white p-3">
-                <div className="h-12 w-12 rounded-xl bg-violet-50" />
-                <div className="flex-1">
-                  <div className="h-3 w-3/4 rounded-full bg-neutral-200" />
-                  <div className="mt-2 h-3 w-1/2 rounded-full bg-neutral-100" />
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {/* AUTOMATION */}
-          <article className="rounded-[30px] border border-neutral-200 bg-white p-7 lg:col-span-12">
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-xl">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
-                  <Workflow size={20} />
-                </div>
-
-                <p className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                  Integraciones y automatización
-                </p>
-
-                <h3 className="mt-2 text-2xl font-semibold text-neutral-950">
-                  Haz que tus herramientas trabajen juntas.
-                </h3>
-
-                <p className="mt-3 text-neutral-600">
-                  Conectamos procesos, plataformas y APIs para reducir tareas
-                  manuales y ahorrar tiempo.
-                </p>
-              </div>
-
-              {/* Flow */}
-              <div className="flex flex-wrap items-center gap-3">
-                {["Formulario", "API", "Software", "Notificación"].map(
-                  (item, index) => (
-                    <div key={item} className="flex items-center gap-3">
-                      <div className="rounded-2xl border border-neutral-200 bg-neutral-50 px-5 py-4 text-sm font-medium text-neutral-700">
-                        {item}
-                      </div>
-
-                      {index < 3 && <span className="text-neutral-300">→</span>}
-                    </div>
-                  ),
-                )}
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
+
+        {/* NOTA FINAL */}
+
+        <p className="mx-auto mt-7 max-w-3xl text-center text-xs leading-6 text-neutral-500">
+          Los ejemplos muestran posibles aplicaciones de nuestros servicios.
+          Cada proyecto se estudia según las necesidades y características de la
+          empresa.
+        </p>
       </div>
     </section>
   );
