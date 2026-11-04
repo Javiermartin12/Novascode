@@ -2,6 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 /* =========================================================
@@ -9,8 +10,10 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 ========================================================= */
 
 const GA_ID = "G-2D01RSFZ43";
+const ADS_ID = "AW-18545002441";
 
-const STORAGE_KEY = "novascode-analytics-consent";
+// Nueva versión: solicitar consentimiento para Analytics y Ads.
+const STORAGE_KEY = "novascode-measurement-consent-v2";
 const CONSENT_EVENT = "novascode-consent-updated";
 
 type Consent = "accepted" | "rejected" | "unset" | "loading";
@@ -54,10 +57,10 @@ function subscribeToConsent(callback: () => void) {
 }
 
 /* =========================================================
-   ELIMINAR COOKIES ANALÍTICAS AL RETIRAR CONSENTIMIENTO
+   ELIMINAR COOKIES DE MEDICIÓN
 ========================================================= */
 
-function clearAnalyticsCookies() {
+function clearMeasurementCookies() {
   const cookieNames = document.cookie
     .split(";")
     .map((cookie) => cookie.trim().split("=")[0])
@@ -67,7 +70,8 @@ function clearAnalyticsCookies() {
         name.startsWith("_ga_") ||
         name === "_gid" ||
         name.startsWith("_gat") ||
-        name.startsWith("_gac_"),
+        name.startsWith("_gac_") ||
+        name.startsWith("_gcl_"),
     );
 
   const hostname = window.location.hostname;
@@ -112,19 +116,16 @@ export default function AnalyticsConsent() {
     try {
       localStorage.setItem(STORAGE_KEY, value);
     } catch {
-      // La elección se mantiene durante esta sesión.
+      // Mantener la elección en memoria.
     }
 
     if (value === "rejected" && wasAccepted) {
-      clearAnalyticsCookies();
-
-      // Reiniciar elimina los scripts analíticos ya cargados.
+      clearMeasurementCookies();
       window.location.reload();
       return;
     }
 
     window.dispatchEvent(new Event(CONSENT_EVENT));
-
     setSettingsOpen(false);
   }
 
@@ -134,9 +135,30 @@ export default function AnalyticsConsent() {
 
   return (
     <>
-      {/* Google Analytics solo después de aceptar */}
+      {/* Cargar las etiquetas solo tras el consentimiento */}
 
-      {consent === "accepted" && <GoogleAnalytics gaId={GA_ID} />}
+      {consent === "accepted" && (
+        <>
+          <GoogleAnalytics gaId={GA_ID} />
+
+          <Script id="novascode-google-ads-config" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+
+              window.dataLayer.push([
+                "set",
+                "allow_ad_personalization_signals",
+                false
+              ]);
+
+              window.dataLayer.push([
+                "config",
+                "${ADS_ID}"
+              ]);
+            `}
+          </Script>
+        </>
+      )}
 
       {/* ===================================================
           BANNER DE COOKIES
@@ -154,8 +176,9 @@ export default function AnalyticsConsent() {
 
           <p className="mt-3 text-sm leading-6 text-neutral-600">
             Utilizamos almacenamiento necesario para el funcionamiento de la web
-            y, si lo autorizas, Google Analytics para conocer las visitas y
-            mejorar nuestros servicios.
+            y, si lo autorizas, Google Analytics y Google Ads para medir las
+            visitas, las solicitudes de presupuesto y el rendimiento de nuestras
+            campañas publicitarias. No activamos la personalización de anuncios.
           </p>
 
           <Link
